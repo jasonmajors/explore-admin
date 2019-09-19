@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Input, Textarea, Flex, Text } from '@modulz/radix'
 
-type HuntAttributes = {
+type HuntAttribute = {
   name: string,
   duration: number,
   description: string,
 }
 
-type HuntAttributeProp = {
-  attributes: HuntAttributes,
+type HuntAttributeProps = {
+  attributes: HuntAttribute,
   setAttributes: Function,
 }
 
-function HuntAttributes(props: HuntAttributeProp) {
+function HuntAttributes(props: HuntAttributeProps) {
   const { attributes, setAttributes } = props
 
   return (

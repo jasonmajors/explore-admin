@@ -1,14 +1,38 @@
 import React, { useState } from 'react';
 import { Input, Textarea, Flex } from '@modulz/radix'
+import NodeInput from './NodeInput'
 
-function HuntNodes() {
+// TODO: Move these to a types.ts file?
+export type Node = {
+  position: number,
+  address: string,
+  hints: Hint[],
+}
+
+export type Hint = {
+  position: number,
+  value: string,
+}
+
+type HuntNodesProps = {
+  nodes: Node[],
+  setNodes: Function,
+}
+
+function HuntNodes(props: HuntNodesProps) {
+  const { nodes, setNodes } = props
+
+  const setNode = (node: Node) => {
+    setNodes([...nodes, node])
+  }
+
   return (
     <div>
-      <Flex justifyContent="center" mt={5}>
-        <Input placeholder="Name of the hunt" my={3} mx={3} />
-        <Input type="number" placeholder="Estimated duration (minutes)" my={3} mx={3} />
-      </Flex>
-      <Textarea placeholder="Description" my={3} mx={3} width="90%" />
+      <NodeInput
+        node={ nodes[0] }
+        setNode={ setNode }
+      />
+      {/* Need an add hint button to add additional hints */}
     </div>
   )
 }

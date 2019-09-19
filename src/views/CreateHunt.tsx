@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
-import { Container, Heading, Input, Textarea, Card, Flex, Button, Divider } from '@modulz/radix'
-import HuntAttributes from '../components/HuntAttributes';
-import HuntNodes from '../components/HuntNodes';
+import React, { useState } from 'react'
+import { Container, Heading, Card, Flex, Button } from '@modulz/radix'
+import HuntAttributes from '../components/HuntAttributes'
+import HuntNodes from '../components/HuntNodes'
 
 function CreateHunt() {
   const [step, setStep] = useState(1)
   const [attributes, setAttributes] = useState({ name: '', duration: 0, description: '' })
+  const [nodes, setNodes] = useState([])
 
+  /**
+   * Increments which step we're on
+   */
   const nextStep = () => {
     setStep(step + 1)
   }
 
+  /**
+   * Decrements which step we're on
+   */
   const prevStep = () => {
     setStep(step - 1)
   }
@@ -22,7 +29,10 @@ function CreateHunt() {
       setAttributes={ setAttributes }
     />
   } else if (step === 2) {
-    inputs = <HuntNodes />
+    inputs = <HuntNodes
+      nodes={ nodes }
+      setNodes={ setNodes }
+    />
   }
 
   return (
