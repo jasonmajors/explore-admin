@@ -17,13 +17,14 @@ function HuntAttributes(props: HuntAttributeProps) {
 
   return (
     <div>
+      <Text size={4}>Basic Info</Text>
       <Flex justifyContent="center" mt={5}>
         <Input
           onChange={ e => setAttributes({ ...attributes, name: e.target.value }) }
           value={ attributes.name }
           placeholder="Name of the hunt"
           my={3}
-          mx={3}
+          mr={3}
         />
         <Input
           onChange={ e => setAttributes({ ...attributes, duration: e.target.value }) }
@@ -39,11 +40,10 @@ function HuntAttributes(props: HuntAttributeProps) {
         value={ attributes.description }
         placeholder="Description"
         my={3}
-        mx={3}
       />
-      <Flex alignItems="center">
-        <Text mx={3} size={3} textColor="grey">Hunt Image</Text>
-        <Input type="file" placeholder="Hunt image" width="70%" />
+      <Flex mt={3} alignItems="center" justifyContent="between">
+        <Text size={3} mr={2} textColor="grey">Hunt Image</Text>
+        <Input type="file" placeholder="Hunt image" />
       </Flex>
     </div>
   )

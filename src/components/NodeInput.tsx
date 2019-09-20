@@ -24,24 +24,22 @@ function NodeInput(props: NodeInputProps) {
           onChange={ e => setAddress(e.target.value) }
           placeholder="address"
           my={3}
-          mx={3}
         />
         <Input
           type="number"
-          value={ position }
+          value={ position === 0 ? '' : position }
           onChange={ (e: any) => setPosition(e.target.value) }
           placeholder="position"
           my={3}
-          mx={3}
         />
       </Flex>
       {/* TODO: Add hints  */}
-      <Button mx={3} onClick={(e: any) => setNode({
+      <Button onClick={(e: any) => setNode({
         address,
         position,
         hints: [] })
       }>
-        Save
+        Another One
       </Button>
     </div>
   )
