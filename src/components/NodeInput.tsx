@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Input, Button } from "@modulz/radix"
+import { Input, Button, Flex } from "@modulz/radix"
 import { Node } from './HuntNodes'
 
 type NodeInputProps = {
@@ -8,28 +8,37 @@ type NodeInputProps = {
 }
 
 function NodeInput(props: NodeInputProps) {
-  const { node, setNode } = props
-  // const { address, position } = node
-  const [address, setAddress] = useState('')
-  const [position, setPosition] = useState('')
+  let { node, setNode } = props
+  if (node === undefined) {
+    node = { position: 0, address: '', hints: [] }
+  }
+  // Need to be able to get the node value if exists
+  const [address, setAddress] = useState(node.address)
+  const [position, setPosition] = useState(node.position)
 
   return (
     <div>
-      <Input
-        value={ address }
-        onChange={ e => setAddress(e.target.value) }
-        placeholder="address"
-      />
-      <Input
-        type="number"
-        value={ position }
-        onChange={ e => setPosition(e.target.value) }
-        placeholder="position"
-      />
+      <Flex justifyContent="center">
+        <Input
+          value={ address }
+          onChange={ e => setAddress(e.target.value) }
+          placeholder="address"
+          my={3}
+          mx={3}
+        />
+        <Input
+          type="number"
+          value={ position }
+          onChange={ (e: any) => setPosition(e.target.value) }
+          placeholder="position"
+          my={3}
+          mx={3}
+        />
+      </Flex>
       {/* TODO: Add hints  */}
-      <Button onClick={(e: any) => setNode({
-        address: address,
-        position: position,
+      <Button mx={3} onClick={(e: any) => setNode({
+        address,
+        position,
         hints: [] })
       }>
         Save
