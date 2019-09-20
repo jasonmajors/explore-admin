@@ -22,14 +22,16 @@ function NodeInput(props: NodeInputProps) {
         <Input
           value={ address }
           onChange={ e => setAddress(e.target.value) }
-          placeholder="address"
+          placeholder="Address"
           my={3}
+          mr={3}
         />
         <Input
           type="number"
           value={ position === 0 ? '' : position }
           onChange={ (e: any) => setPosition(e.target.value) }
-          placeholder="position"
+          placeholder="Position"
+          ml={3}
           my={3}
         />
       </Flex>

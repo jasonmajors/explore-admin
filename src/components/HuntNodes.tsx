@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import NodeInput from './NodeInput'
+import { Text } from '@modulz/radix'
 
 // TODO: Move these to a types.ts file?
 export type Node = {
@@ -27,6 +28,7 @@ function HuntNodes(props: HuntNodesProps) {
 
   return (
     <div>
+      <Text size={4}>Points of Interest</Text>
       <NodeInput
         node={ nodes[0] }
         setNode={ setNode }
