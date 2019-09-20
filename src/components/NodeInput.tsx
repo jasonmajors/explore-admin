@@ -12,9 +12,15 @@ function NodeInput(props: NodeInputProps) {
   if (node === undefined) {
     node = { position: 0, address: '', hints: [] }
   }
-  // Need to be able to get the node value if exists
+
   const [address, setAddress] = useState(node.address)
   const [position, setPosition] = useState(node.position)
+  const [saved, setSaved] = useState(false)
+
+  const saveNode = () => {
+    setSaved(true)
+    setNode({ address, position, hints: [] })
+  }
 
   return (
     <div>
@@ -36,13 +42,11 @@ function NodeInput(props: NodeInputProps) {
         />
       </Flex>
       {/* TODO: Add hints  */}
-      <Button onClick={(e: any) => setNode({
-        address,
-        position,
-        hints: [] })
-      }>
-        Another One
-      </Button>
+      { saved === false && (
+        <Button onClick={ () => saveNode() }>
+          Another One
+        </Button>
+      )}
     </div>
   )
 }

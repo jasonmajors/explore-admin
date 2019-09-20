@@ -26,14 +26,22 @@ function HuntNodes(props: HuntNodesProps) {
     setNodes([...nodes, node])
   }
 
+  const nodeInputs = []
+
+  for (var i = 0; i <= nodes.length; i++) {
+    nodeInputs.push(
+      <NodeInput
+        key={i}
+        node={ nodes[i] }
+        setNode={ setNode }
+      />
+    )
+  }
+
   return (
     <div>
       <Text size={4}>Points of Interest</Text>
-      <NodeInput
-        node={ nodes[0] }
-        setNode={ setNode }
-      />
-      {/* Need an add hint button to add additional hints */}
+      { nodeInputs }
     </div>
   )
 }
