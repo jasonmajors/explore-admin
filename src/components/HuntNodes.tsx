@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import NodeInput from './NodeInput'
-import { Text } from '@modulz/radix'
+import { Text, Button } from '@modulz/radix'
 
 // TODO: Move these to a types.ts file?
 export type Node = {
@@ -25,15 +25,15 @@ function HuntNodes(props: HuntNodesProps) {
   const setNode = (node: Node) => {
     setNodes([...nodes, node])
   }
+  // Need a button that creates an empty Node via setNode (will need to be down in the template)
 
   const nodeInputs = []
-
-  for (var i = 0; i <= nodes.length; i++) {
+  // we have one node so render 1 empty input
+  for (var i = 0; i < nodes.length; i++) {
     nodeInputs.push(
       <NodeInput
         key={i}
         node={ nodes[i] }
-        setNode={ setNode }
       />
     )
   }
@@ -42,6 +42,9 @@ function HuntNodes(props: HuntNodesProps) {
     <div>
       <Text size={4}>Points of Interest</Text>
       { nodeInputs }
+      <Button onClick={ () => setNode({ address: '', position: 0, hints: [] }) }>
+        Another One
+      </Button>
     </div>
   )
 }

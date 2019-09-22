@@ -6,7 +6,8 @@ import HuntNodes from '../components/HuntNodes'
 function CreateHunt() {
   const [step, setStep] = useState(1)
   const [attributes, setAttributes] = useState({ name: '', duration: 0, description: '' })
-  const [nodes, setNodes] = useState([])
+  // Need to start with an initial node (empty)
+  const [nodes, setNodes] = useState([{ address: '', position: 0, hints: [] }])
 
   /**
    * Increments which step we're on

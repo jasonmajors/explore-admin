@@ -4,22 +4,25 @@ import { Node } from './HuntNodes'
 
 type NodeInputProps = {
   node: Node,
-  setNode: Function,
 }
 
 function NodeInput(props: NodeInputProps) {
-  let { node, setNode } = props
-  if (node === undefined) {
-    node = { position: 0, address: '', hints: [] }
-  }
+  let { node } = props
+  // if (node === undefined) {
+  //   node = { position: 0, address: '', hints: [] }
+  // }
 
   const [address, setAddress] = useState(node.address)
   const [position, setPosition] = useState(node.position)
-  const [saved, setSaved] = useState(false)
 
-  const saveNode = () => {
-    setSaved(true)
-    setNode({ address, position, hints: [] })
+  const updateAddress = (address: any) => {
+    setAddress(address)
+    node.address = address
+  }
+
+  const updatePosition = (position: any) => {
+    setPosition(position)
+    node.position = position
   }
 
   return (
@@ -27,7 +30,7 @@ function NodeInput(props: NodeInputProps) {
       <Flex justifyContent="center">
         <Input
           value={ address }
-          onChange={ e => setAddress(e.target.value) }
+          onChange={ e => updateAddress(e.target.value) }
           placeholder="Address"
           my={3}
           mr={3}
@@ -35,18 +38,13 @@ function NodeInput(props: NodeInputProps) {
         <Input
           type="number"
           value={ position === 0 ? '' : position }
-          onChange={ (e: any) => setPosition(e.target.value) }
+          onChange={ (e: any) => updatePosition(e.target.value) }
           placeholder="Position"
           ml={3}
           my={3}
         />
       </Flex>
       {/* TODO: Add hints  */}
-      { saved === false && (
-        <Button onClick={ () => saveNode() }>
-          Another One
-        </Button>
-      )}
     </div>
   )
 }
