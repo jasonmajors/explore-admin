@@ -22,6 +22,8 @@ function HintInput(props: HintInputProps) {
       value={ value }
       placeholder={ placeholder }
       onChange={ e => updateValue(e.target.value) }
+      my={3}
+      mr={3}
     />
   )
 }
