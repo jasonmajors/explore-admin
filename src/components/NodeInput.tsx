@@ -25,9 +25,9 @@ function NodeInput(props: NodeInputProps) {
   }
 
   const newHint = (hint: Hint) => {
-    setHints([...hints, hint])
-    console.log(hints)
-    node.hints = hints
+    let updated = hints.concat(hint)
+    setHints(updated)
+    node.hints = updated
   }
 
   const hintInputs: Array<JSX.Element> = []
