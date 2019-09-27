@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { Input, Button, Flex } from "@modulz/radix"
-import { Node } from './HuntNodes'
+import { Node, Hint } from './HuntNodes'
+import HintInput from "./HintInput";
 
 type NodeInputProps = {
   node: Node,
@@ -8,12 +9,10 @@ type NodeInputProps = {
 
 function NodeInput(props: NodeInputProps) {
   let { node } = props
-  // if (node === undefined) {
-  //   node = { position: 0, address: '', hints: [] }
-  // }
 
   const [address, setAddress] = useState(node.address)
   const [position, setPosition] = useState(node.position)
+  const [hints, setHints] = useState(node.hints)
 
   const updateAddress = (address: any) => {
     setAddress(address)
@@ -23,6 +22,24 @@ function NodeInput(props: NodeInputProps) {
   const updatePosition = (position: any) => {
     setPosition(position)
     node.position = position
+  }
+
+  const newHint = (hint: Hint) => {
+    setHints([...hints, hint])
+    console.log(hints)
+    // node.hints = hints
+  }
+
+  const hintInputs: Array<JSX.Element> = []
+
+  for (var i = 0; i < hints.length; i++) {
+    hintInputs.push(
+      <HintInput
+        key={i}
+        hint={ hints[i] }
+        placeholder={`Hint # ${i+1}`}
+      />
+    )
   }
 
   return (
@@ -44,7 +61,8 @@ function NodeInput(props: NodeInputProps) {
           my={3}
         />
       </Flex>
-      {/* TODO: Add hints  */}
+      { hintInputs }
+      <Button onClick={ () => newHint({ value: '', position: hintInputs.length + 1 }) }>New Hint</Button>
     </div>
   )
 }

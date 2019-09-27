@@ -27,7 +27,7 @@ function HuntNodes(props: HuntNodesProps) {
   }
   // Need a button that creates an empty Node via setNode (will need to be down in the template)
 
-  const nodeInputs = []
+  const nodeInputs: Array<JSX.Element> = []
   // we have one node so render 1 empty input
   for (var i = 0; i < nodes.length; i++) {
     nodeInputs.push(
@@ -42,7 +42,7 @@ function HuntNodes(props: HuntNodesProps) {
     <div>
       <Text size={4}>Points of Interest</Text>
       { nodeInputs }
-      <Button onClick={ () => setNode({ address: '', position: 0, hints: [] }) }>
+      <Button onClick={ () => setNode({ address: '', position: 0, hints: [{ value: '', position: 0 }] }) }>
         Another One
       </Button>
     </div>

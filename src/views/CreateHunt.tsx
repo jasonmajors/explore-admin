@@ -7,7 +7,15 @@ function CreateHunt() {
   const [step, setStep] = useState(1)
   const [attributes, setAttributes] = useState({ name: '', duration: 0, description: '' })
   // Need to start with an initial node (empty)
-  const [nodes, setNodes] = useState([{ address: '', position: 0, hints: [] }])
+  const [nodes, setNodes] = useState([
+    {
+      address: '',
+      position: 0,
+      hints: [
+        { value: '', position: 0 }
+      ]
+    }
+  ])
 
   /**
    * Increments which step we're on
