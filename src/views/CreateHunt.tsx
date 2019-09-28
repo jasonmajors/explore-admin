@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import { Container, Heading, Card, Flex, Button } from '@modulz/radix'
 import HuntAttributes from '../components/HuntAttributes'
 import HuntNodes from '../components/HuntNodes'
+import { db } from '../components/Firebase'
 
-function CreateHunt() {
+function CreateHunt(props: any) {
+  console.log(db)
   const [step, setStep] = useState(1)
   const [attributes, setAttributes] = useState({ name: '', duration: 0, description: '' })
   // Need to start with an initial node (empty)
