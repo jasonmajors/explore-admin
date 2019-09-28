@@ -42,7 +42,9 @@ function HuntNodes(props: HuntNodesProps) {
     <div>
       <Text size={4}>Points of Interest</Text>
       { nodeInputs }
-      <Button onClick={ () => setNode({ address: '', position: 0, hints: [{ value: '', position: 0 }] }) }>
+      <Button
+        my={3}
+        onClick={ () => setNode({ address: '', position: 0, hints: [{ value: '', position: 0 }] }) }>
         Another One
       </Button>
     </div>
