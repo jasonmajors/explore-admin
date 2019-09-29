@@ -5,11 +5,16 @@ type HuntAttribute = {
   name: string,
   duration: number,
   description: string,
+  image: string,
 }
 
 type HuntAttributeProps = {
   attributes: HuntAttribute,
   setAttributes: Function,
+}
+
+const upload = () => {
+
 }
 
 function HuntAttributes(props: HuntAttributeProps) {
@@ -43,7 +48,10 @@ function HuntAttributes(props: HuntAttributeProps) {
       />
       <Flex mt={3} alignItems="center" justifyContent="between">
         <Text size={3} mr={2} textColor="grey">Hunt Image</Text>
-        <Input type="file" placeholder="Hunt image" />
+        <Input
+          onChange={ e => setAttributes({ ...attributes, image: e.target.value })}
+          type="file"
+          placeholder="Hunt image" />
       </Flex>
     </div>
   )

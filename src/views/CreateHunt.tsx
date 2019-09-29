@@ -4,10 +4,9 @@ import HuntAttributes from '../components/HuntAttributes'
 import HuntNodes from '../components/HuntNodes'
 import { db } from '../components/Firebase'
 
-function CreateHunt(props: any) {
-  console.log(db)
+function CreateHunt() {
   const [step, setStep] = useState(1)
-  const [attributes, setAttributes] = useState({ name: '', duration: 0, description: '' })
+  const [attributes, setAttributes] = useState({ name: '', duration: 0, description: '', image: '' })
   // Need to start with an initial node (empty)
   const [nodes, setNodes] = useState([
     {
@@ -18,6 +17,12 @@ function CreateHunt(props: any) {
       ]
     }
   ])
+
+  const submit = () => {
+    db.collection('hunts').add({
+
+    })
+  }
 
   /**
    * Increments which step we're on

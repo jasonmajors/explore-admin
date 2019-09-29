@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Hint } from './HuntNodes'
-import { Input } from "@modulz/radix";
+import { Textarea } from "@modulz/radix";
 
 type HintInputProps = {
   hint: Hint,
@@ -18,10 +18,10 @@ function HintInput(props: HintInputProps) {
   }
 
   return (
-    <Input
+    <Textarea
       value={ value }
       placeholder={ placeholder }
-      onChange={ e => updateValue(e.target.value) }
+      onChange={ (e: any) => updateValue(e.target.value) }
       my={3}
       mr={3}
     />
