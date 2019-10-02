@@ -19,6 +19,10 @@ function CreateHunt() {
   ])
 
   const submit = () => {
+    // TODO: Save location as GeoPoint for each node
+    // {
+    //   location: new firebase.firestore.GeoPoint(latitude, longitude)
+    // }
     db.collection('hunts').add({
 
     })
@@ -56,7 +60,7 @@ function CreateHunt() {
       <Card>
         <Container size={1}>
           <Heading size={4} my={3}>
-            New Hunt
+            Create a Hunt
           </Heading>
           { inputs }
           <Flex mt={5}>

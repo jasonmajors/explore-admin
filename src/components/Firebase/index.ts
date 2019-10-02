@@ -11,9 +11,11 @@ var config = {
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
   projectId: process.env.REACT_APP_FIREBASE_APP_ID,
   databaseURL: process.env.REACT_APP_FIREBASE_DB_URL,
-  // storageBucket: process.env.REACT_APP_STORAGE_BUCKET
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE
 };
 
 firebase.initializeApp(config);
 
 export const db = firebase.firestore();
+export const auth = firebase.auth();
+export default firebase;

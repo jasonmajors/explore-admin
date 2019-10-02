@@ -10,8 +10,14 @@ function App() {
     <RadixProvider>
       <Router>
         <div>
-          <Route path="/create" component={ CreateHunt } />
-          <Route path="/login" component={ Login } />
+          <Route
+            path="/create"
+            component={ CreateHunt }
+          />
+          <Route
+            path="/login"
+            render={ props => <Login { ...props } /> }
+          />
         </div>
       </Router>
     </RadixProvider>
