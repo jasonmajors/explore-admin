@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react"
 import { Container, Card, Heading, Input, Button, Text } from "@modulz/radix"
-import firebase, { auth } from "../components/Firebase"
+import { auth } from "../components/Firebase"
 
 function Login(props: any) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState('')
 
-
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(user => {
+    // Setup a listener for authentication
+    auth.onAuthStateChanged(user => {
       if (user != null) {
         props.history.push(`/create`)
       }

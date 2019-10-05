@@ -1,11 +1,12 @@
 import React from 'react';
 import { Input, Textarea, Flex, Text } from '@modulz/radix'
+import { storage } from './Firebase'
 
 type HuntAttribute = {
   name: string,
   duration: number,
   description: string,
-  image: string,
+  image: File,
 }
 
 type HuntAttributeProps = {
@@ -13,12 +14,10 @@ type HuntAttributeProps = {
   setAttributes: Function,
 }
 
-const upload = () => {
-
-}
-
 function HuntAttributes(props: HuntAttributeProps) {
   const { attributes, setAttributes } = props
+
+  let uploadImage: any = React.createRef()
 
   return (
     <div>
@@ -49,8 +48,9 @@ function HuntAttributes(props: HuntAttributeProps) {
       <Flex mt={3} alignItems="center" justifyContent="between">
         <Text size={3} mr={2} textColor="grey">Hunt Image</Text>
         <Input
-          onChange={ e => setAttributes({ ...attributes, image: e.target.value })}
+          onChange={ (e: any) => setAttributes({ ...attributes, image: uploadImage.current.files[0] }) }
           type="file"
+          ref={uploadImage}
           placeholder="Hunt image" />
       </Flex>
     </div>

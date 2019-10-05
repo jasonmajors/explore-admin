@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { Container, Heading, Card, Flex, Button } from '@modulz/radix'
 import HuntAttributes from '../components/HuntAttributes'
 import HuntNodes from '../components/HuntNodes'
-import { db } from '../components/Firebase'
+import { db, storage } from '../components/Firebase'
 
 function CreateHunt() {
   const [step, setStep] = useState(1)
-  const [attributes, setAttributes] = useState({ name: '', duration: 0, description: '', image: '' })
+  const [attributes, setAttributes] = useState({ name: '', duration: 0, description: '', image: new File([], '') })
   // Need to start with an initial node (empty)
   const [nodes, setNodes] = useState([
     {
@@ -18,14 +18,24 @@ function CreateHunt() {
     }
   ])
 
+  const upload = () => {
+    const { image } = attributes
+    if (image) {
+      const storageRef = storage.ref()
+      const imageRef = storageRef.child(`images/${image.name}`)
+      imageRef.put(image).then(snapshot => console.log('uploaded a file'))
+    }
+  }
+
   const submit = () => {
+    upload()
     // TODO: Save location as GeoPoint for each node
     // {
     //   location: new firebase.firestore.GeoPoint(latitude, longitude)
     // }
-    db.collection('hunts').add({
+    // db.collection('hunts').add({
 
-    })
+    // })
   }
 
   /**
