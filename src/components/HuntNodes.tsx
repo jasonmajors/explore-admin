@@ -22,7 +22,7 @@ type HuntNodesProps = {
 function HuntNodes(props: HuntNodesProps) {
   const { nodes, setNodes } = props
 
-  const setNode = (node: Node) => {
+  const setNode = (node: Node): void => {
     setNodes([...nodes, node])
   }
   // Need a button that creates an empty Node via setNode (will need to be down in the template)

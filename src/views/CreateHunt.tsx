@@ -7,7 +7,6 @@ import { db, storage } from '../components/Firebase'
 function CreateHunt() {
   const [step, setStep] = useState(1)
   const [attributes, setAttributes] = useState({ name: '', duration: 0, description: '', image: new File([], '') })
-  // Need to start with an initial node (empty)
   const [nodes, setNodes] = useState([
     {
       address: '',
@@ -18,28 +17,48 @@ function CreateHunt() {
     }
   ])
 
-  const upload = () => {
+  /**
+   * Upload the state.attributes.image file.
+   * Intended for uploading an image to serve as the Hunt background.
+   *
+   * @return Promise<URL>
+   */
+  const upload = async(): Promise<URL> => {
     const { image } = attributes
-    if (image) {
-      const storageRef = storage.ref()
-      const imageRef = storageRef.child(`images/${image.name}`)
-      imageRef.put(image).then(snapshot => console.log('uploaded a file'))
-    }
+    const snapshot: firebase.storage.UploadTaskSnapshot = await storage.ref()
+      .child(`images/${image.name}`)
+      .put(image)
+
+    const downloadURL: string = await snapshot.ref.getDownloadURL()
+
+    return new URL(downloadURL)
   }
 
-  const submit = () => {
-    upload()
-    // TODO: Save location as GeoPoint for each node
-    // {
-    //   location: new firebase.firestore.GeoPoint(latitude, longitude)
-    // }
-    // db.collection('hunts').add({
+  /**
+   * Submit the Hunt
+   *
+   * @return Promise<void>
+   */
+  const submit = async(): Promise<void> => {
+    try {
+      const downloadURL: URL = await upload();
+      console.log(downloadURL.toString())
+      // TODO: Save location as GeoPoint for each node
+      // {
+      //   location: new firebase.firestore.GeoPoint(latitude, longitude)
+      // }
+      // db.collection('hunts').add({
 
-    // })
+      // })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   /**
    * Increments which step we're on
+   *
+   * @return void
    */
   const nextStep = () => {
     setStep(step + 1)
@@ -47,6 +66,8 @@ function CreateHunt() {
 
   /**
    * Decrements which step we're on
+   *
+   * @return void
    */
   const prevStep = () => {
     setStep(step - 1)

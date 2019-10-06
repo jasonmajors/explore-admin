@@ -17,7 +17,17 @@ type HuntAttributeProps = {
 function HuntAttributes(props: HuntAttributeProps) {
   const { attributes, setAttributes } = props
 
-  let uploadImage: any = React.createRef()
+  let uploadImage: React.RefObject<HTMLInputElement> = React.createRef<HTMLInputElement>()
+
+  /**
+   * Sets the image File on the attributes prop
+   */
+  const setImage = (): void => {
+    if (uploadImage && uploadImage.current && uploadImage.current.files) {
+      let image: File = uploadImage.current.files[0]
+      setAttributes({ ...attributes, image })
+    }
+  }
 
   return (
     <div>
@@ -40,7 +50,7 @@ function HuntAttributes(props: HuntAttributeProps) {
         />
       </Flex>
       <Textarea
-        onChange={ (e: any) => setAttributes({ ...attributes, description: e.target.value }) }
+        onChange={ (e: React.ChangeEvent<HTMLInputElement>) => setAttributes({ ...attributes, description: e.target.value }) }
         value={ attributes.description }
         placeholder="Description"
         my={3}
@@ -48,9 +58,9 @@ function HuntAttributes(props: HuntAttributeProps) {
       <Flex mt={3} alignItems="center" justifyContent="between">
         <Text size={3} mr={2} textColor="grey">Hunt Image</Text>
         <Input
-          onChange={ (e: any) => setAttributes({ ...attributes, image: uploadImage.current.files[0] }) }
+          onChange={ () => setImage() }
           type="file"
-          ref={uploadImage}
+          ref={ uploadImage }
           placeholder="Hunt image" />
       </Flex>
     </div>

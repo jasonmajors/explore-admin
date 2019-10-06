@@ -9,16 +9,16 @@ function Login(props: any) {
 
   useEffect(() => {
     // Setup a listener for authentication
-    auth.onAuthStateChanged(user => {
+    auth.onAuthStateChanged((user: firebase.User | null) => {
       if (user != null) {
         props.history.push(`/create`)
       }
     })
   }, [])
 
-  const submit = () => {
+  const submit = (): void => {
     auth.signInWithEmailAndPassword(email, password)
-      .catch(error => {
+      .catch((error: firebase.auth.Error) => {
         // Handle Errors here.
         setErrors(error.message)
       });

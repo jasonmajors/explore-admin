@@ -12,7 +12,7 @@ function HintInput(props: HintInputProps) {
 
   const [value, setValue] = useState(hint.value)
 
-  const updateValue = (value: string) => {
+  const updateValue = (value: string): void => {
     setValue(value)
     hint.value = value
   }

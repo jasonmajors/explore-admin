@@ -14,17 +14,17 @@ function NodeInput(props: NodeInputProps) {
   const [position, setPosition] = useState(node.position)
   const [hints, setHints] = useState(node.hints)
 
-  const updateAddress = (address: any) => {
+  const updateAddress = (address: string): void => {
     setAddress(address)
     node.address = address
   }
 
-  const updatePosition = (position: any) => {
+  const updatePosition = (position: number): void => {
     setPosition(position)
     node.position = position
   }
 
-  const newHint = (hint: Hint) => {
+  const newHint = (hint: Hint): void => {
     let updated = hints.concat(hint)
     setHints(updated)
     node.hints = updated
