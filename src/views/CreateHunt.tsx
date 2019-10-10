@@ -41,15 +41,23 @@ function CreateHunt() {
    */
   const submit = async(): Promise<void> => {
     try {
-      const downloadURL: URL = await upload();
-      console.log(downloadURL.toString())
+      const downloadURL: URL = await upload()
+      const payload = {
+        title: attributes.name,
+        description: attributes.description,
+        duration: attributes.duration,
+        image: downloadURL.toString(),
+        nodes: nodes
+      }
       // TODO: Save location as GeoPoint for each node
+      // will have to be in a cloud compute function
       // {
       //   location: new firebase.firestore.GeoPoint(latitude, longitude)
       // }
-      // db.collection('hunts').add({
-
-      // })
+      // start loading indicator
+      const doc = await db.collection('hunts').add(payload)
+      // end loading indicator
+      console.log(doc.id)
     } catch (error) {
       console.error(error)
     }
@@ -60,7 +68,7 @@ function CreateHunt() {
    *
    * @return void
    */
-  const nextStep = () => {
+  const nextStep = (): void => {
     setStep(step + 1)
   }
 
@@ -69,7 +77,7 @@ function CreateHunt() {
    *
    * @return void
    */
-  const prevStep = () => {
+  const prevStep = (): void => {
     setStep(step - 1)
   }
 
@@ -98,7 +106,12 @@ function CreateHunt() {
             {step > 1 &&
               <Button onClick={ () => prevStep() } mr={3}>Back</Button>
             }
-            <Button onClick={ () => nextStep() }>Next</Button>
+            {step < 3 &&
+              <Button onClick={ () => nextStep() }>Next</Button>
+            }
+            {step === 3 &&
+              <Button onClick={ () => submit() }>Submit</Button>
+            }
           </Flex>
         </Container>
       </Card>

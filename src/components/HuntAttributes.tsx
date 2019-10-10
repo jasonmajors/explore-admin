@@ -1,6 +1,5 @@
 import React from 'react';
 import { Input, Textarea, Flex, Text } from '@modulz/radix'
-import { storage } from './Firebase'
 
 type HuntAttribute = {
   name: string,
@@ -24,7 +23,7 @@ function HuntAttributes(props: HuntAttributeProps) {
    */
   const setImage = (): void => {
     if (uploadImage && uploadImage.current && uploadImage.current.files) {
-      let image: File = uploadImage.current.files[0]
+      const image: File = uploadImage.current.files[0]
       setAttributes({ ...attributes, image })
     }
   }
