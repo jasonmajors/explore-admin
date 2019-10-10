@@ -49,11 +49,6 @@ function CreateHunt() {
         image: downloadURL.toString(),
         nodes: nodes
       }
-      // TODO: Save location as GeoPoint for each node
-      // will have to be in a cloud compute function
-      // {
-      //   location: new firebase.firestore.GeoPoint(latitude, longitude)
-      // }
       // start loading indicator
       const doc = await db.collection('hunts').add(payload)
       // end loading indicator
