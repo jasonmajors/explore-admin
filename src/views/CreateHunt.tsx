@@ -3,21 +3,24 @@ import { Container, Heading, Card, Flex, Button } from '@modulz/radix'
 import HuntAttributes from '../components/HuntAttributes'
 import HuntNodes from '../components/HuntNodes'
 import { db, storage } from '../components/Firebase'
+import { Node } from '../components/HuntNodes'
 
 function CreateHunt() {
   const [step, setStep] = useState(1)
   const [attributes, setAttributes] = useState({ name: '', duration: 0, description: '', image: new File([], '') })
-  // We're using an Object here with indexes for keys rather than an array
-  // because updating an Object inside an array in firebase is not possible
-  const [nodes, setNodes] = useState({ 0:
-    {
-      address: '',
-      position: 0,
-      hints: [
-        { value: '', position: 0 }
-      ]
-    }
+  // We're using Map here with an index as the key to setup Nodes,
+  // because because updating an array item in firestore isn't possible.
+  // We'll convert the Map to an Object when we persist to firestore.
+  const nodeMap = new Map<number, Node>()
+  nodeMap.set(0, {
+    address: '',
+    position: 0,
+    hints: [
+      { value: '', position: 0 }
+    ]
   })
+
+  const [nodes, setNodes] = useState(nodeMap)
 
   /**
    * Upload the state.attributes.image file.
@@ -49,7 +52,8 @@ function CreateHunt() {
         description: attributes.description,
         duration: attributes.duration,
         image: downloadURL.toString(),
-        nodes: nodes
+        // Convert our nodes map into an Object to save in firestore
+        nodes: Object.fromEntries(nodes)
       }
       // start loading indicator
       const doc = await db.collection('hunts').add(payload)

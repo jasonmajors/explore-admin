@@ -15,7 +15,7 @@ export type Hint = {
 }
 
 type HuntNodesProps = {
-  nodes: { [i: number]: Node },
+  nodes: Map<number, Node>,
   setNodes: Function,
 }
 
@@ -23,19 +23,24 @@ function HuntNodes(props: HuntNodesProps) {
   const { nodes, setNodes } = props
 
   const setNode = (node: Node): void => {
-    const next = Object.keys(nodes).length
-    setNodes({ ...nodes, [next]: node  })
+    // Set the node at the next index in our node map
+    nodes.set(nodes.size, node)
+
+    setNodes(new Map(nodes))
   }
 
   const nodeInputs: Array<JSX.Element> = []
 
-  for (var i = 0; i < Object.keys(nodes).length; i++) {
-    nodeInputs.push(
-      <NodeInput
-        key={i}
-        node={ nodes[i] }
-      />
-    )
+  for (var i = 0; i < nodes.size; i++) {
+    const node = nodes.get(i)
+    if (node !== undefined) {
+      nodeInputs.push(
+        <NodeInput
+          key={i}
+          node={ node }
+        />
+      )
+    }
   }
 
   return (
