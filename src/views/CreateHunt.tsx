@@ -53,7 +53,7 @@ function CreateHunt() {
         duration: attributes.duration,
         image: downloadURL.toString(),
         // Convert our nodes map into an Object to save in firestore
-        nodes: Object.fromEntries(nodes)
+        nodes: objectifyNodes(nodes)
       }
       // start loading indicator
       const doc = await db.collection('hunts').add(payload)
@@ -62,6 +62,16 @@ function CreateHunt() {
     } catch (error) {
       console.error(error)
     }
+  }
+
+  /**
+   * Converts the Node map into an Object we can persist to firestore
+   *
+   * @param nodes Map<number, Node>
+   * @return Object { [index: number]: Node }
+   */
+  const objectifyNodes = (nodes: Map<number, Node>): { [index: number]: Node } => {
+    return Object.fromEntries(nodes)
   }
 
   /**
