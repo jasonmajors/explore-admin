@@ -7,7 +7,9 @@ import { db, storage } from '../components/Firebase'
 function CreateHunt() {
   const [step, setStep] = useState(1)
   const [attributes, setAttributes] = useState({ name: '', duration: 0, description: '', image: new File([], '') })
-  const [nodes, setNodes] = useState([
+  // We're using an Object here with indexes for keys rather than an array
+  // because updating an Object inside an array in firebase is not possible
+  const [nodes, setNodes] = useState({ 0:
     {
       address: '',
       position: 0,
@@ -15,7 +17,7 @@ function CreateHunt() {
         { value: '', position: 0 }
       ]
     }
-  ])
+  })
 
   /**
    * Upload the state.attributes.image file.

@@ -15,7 +15,7 @@ export type Hint = {
 }
 
 type HuntNodesProps = {
-  nodes: Node[],
+  nodes: { [i: number]: Node },
   setNodes: Function,
 }
 
@@ -23,13 +23,13 @@ function HuntNodes(props: HuntNodesProps) {
   const { nodes, setNodes } = props
 
   const setNode = (node: Node): void => {
-    setNodes([...nodes, node])
+    const next = Object.keys(nodes).length
+    setNodes({ ...nodes, [next]: node  })
   }
-  // Need a button that creates an empty Node via setNode (will need to be down in the template)
 
   const nodeInputs: Array<JSX.Element> = []
-  // we have one node so render 1 empty input
-  for (var i = 0; i < nodes.length; i++) {
+
+  for (var i = 0; i < Object.keys(nodes).length; i++) {
     nodeInputs.push(
       <NodeInput
         key={i}
