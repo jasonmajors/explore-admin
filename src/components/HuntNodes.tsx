@@ -6,6 +6,7 @@ import { Text, Button } from '@modulz/radix'
 export type Node = {
   position: number,
   address: string,
+  content: string,
   hints: Hint[],
 }
 
@@ -49,7 +50,7 @@ function HuntNodes(props: HuntNodesProps) {
       { nodeInputs }
       <Button
         my={3}
-        onClick={ () => setNode({ address: '', position: 0, hints: [{ value: '', position: 0 }] }) }>
+        onClick={ () => setNode({ address: '', position: 0, content: '', hints: [{ value: '', position: 0 }] }) }>
         Another One
       </Button>
     </div>

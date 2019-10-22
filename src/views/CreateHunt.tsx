@@ -7,6 +7,7 @@ import { Node } from '../components/HuntNodes'
 
 function CreateHunt() {
   const [step, setStep] = useState(1)
+  const [loading, setLoading] = useState(false)
   const [attributes, setAttributes] = useState({ name: '', duration: 0, description: '', image: new File([], '') })
   // We're using Map here with an index as the key to setup Nodes,
   // because because updating an array item in firestore isn't possible.
@@ -15,6 +16,7 @@ function CreateHunt() {
   nodeMap.set(0, {
     address: '',
     position: 0,
+    content: '',
     hints: [
       { value: '', position: 0 }
     ]
@@ -46,6 +48,9 @@ function CreateHunt() {
    */
   const submit = async(): Promise<void> => {
     try {
+      // start loading indicator
+      setLoading(true)
+      // Upload the image and get the URL
       const downloadURL: URL = await upload()
       const payload = {
         title: attributes.name,
@@ -55,9 +60,9 @@ function CreateHunt() {
         // Convert our nodes map into an Object to save in firestore
         nodes: objectifyNodes(nodes)
       }
-      // start loading indicator
       const doc = await db.collection('hunts').add(payload)
       // end loading indicator
+      setLoading(false)
       console.log(doc.id)
     } catch (error) {
       console.error(error)
@@ -114,14 +119,19 @@ function CreateHunt() {
           </Heading>
           { inputs }
           <Flex mt={5}>
-            {step > 1 &&
+            {step > 1 && loading === false &&
               <Button onClick={ () => prevStep() } mr={3}>Back</Button>
             }
             {step < 3 &&
               <Button onClick={ () => nextStep() }>Next</Button>
             }
             {step === 3 &&
-              <Button onClick={ () => submit() }>Submit</Button>
+              <Button
+                onClick={ () => submit() }
+                isWaiting={ loading }
+              >
+                Submit
+              </Button>
             }
           </Flex>
         </Container>

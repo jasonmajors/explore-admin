@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Input, Button, Flex } from "@modulz/radix"
+import { Input, Button, Flex, Textarea } from "@modulz/radix"
 import { Node, Hint } from './HuntNodes'
 import HintInput from "./HintInput";
 
@@ -11,12 +11,18 @@ function NodeInput(props: NodeInputProps) {
   let { node } = props
 
   const [address, setAddress] = useState(node.address)
+  const [content, setContent] = useState(node.content)
   const [position, setPosition] = useState(node.position)
   const [hints, setHints] = useState(node.hints)
 
   const updateAddress = (address: string): void => {
     setAddress(address)
     node.address = address
+  }
+
+  const updateContent = (content: string): void => {
+    setContent(content)
+    node.content = content
   }
 
   const updatePosition = (position: number): void => {
@@ -61,6 +67,15 @@ function NodeInput(props: NodeInputProps) {
           ml={3}
           my={3}
         />
+      </Flex>
+      <Flex>
+        <Textarea
+          value={ content }
+          onChange={ (e: any) => updateContent(e.target.value) }
+          placeholder="Content"
+          my={3}
+          mr={3}
+          />
       </Flex>
       { hintInputs }
       <Button onClick={ () => newHint({ value: '', position: hintInputs.length + 1 }) }>New Hint</Button>
