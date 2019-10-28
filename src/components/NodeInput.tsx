@@ -27,7 +27,7 @@ function NodeInput(props: NodeInputProps) {
 
   const updatePosition = (position: number): void => {
     setPosition(position)
-    node.position = position
+    node.position = position - 1 // 0 index them in the db
   }
 
   const newHint = (hint: Hint): void => {
@@ -78,7 +78,7 @@ function NodeInput(props: NodeInputProps) {
           />
       </Flex>
       { hintInputs }
-      <Button onClick={ () => newHint({ value: '', position: hintInputs.length + 1 }) }>New Hint</Button>
+      <Button onClick={ () => newHint({ value: '', position: hintInputs.length }) }>New Hint</Button>
     </div>
   )
 }
