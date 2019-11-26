@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Heading, Card, Flex, Button } from '@modulz/radix'
 import HuntAttributes from '../components/HuntAttributes'
 import HuntNodes from '../components/HuntNodes'
 import { db, storage } from '../components/Firebase'
 import { Node } from '../components/HuntNodes'
+import { auth } from "../components/Firebase"
 
-function CreateHunt() {
+function CreateHunt(props: any) {
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false)
   const [attributes, setAttributes] = useState({ name: '', duration: 0, description: '', image: new File([], '') })
@@ -23,6 +24,15 @@ function CreateHunt() {
   })
 
   const [nodes, setNodes] = useState(nodeMap)
+
+  useEffect(() => {
+    // Setup a listener for authentication
+    auth.onAuthStateChanged((user: firebase.User | null) => {
+      if (user === null) {
+        props.history.push(`/login`)
+      }
+    })
+  }, [])
 
   /**
    * Upload the state.attributes.image file.

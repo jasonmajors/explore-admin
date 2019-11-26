@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
 import CreateHunt from './views/CreateHunt';
 import Login from './views/Login';
+import Home from './views/Home';
 
 function App() {
   return (
@@ -11,8 +12,13 @@ function App() {
       <Router>
         <div>
           <Route
+            path="/"
+            component={ Home }
+            // render={ props => <Home { ...props } /> }
+          />
+          <Route
             path="/create"
-            component={ CreateHunt }
+            render={ props => <CreateHunt { ...props } /> }
           />
           <Route
             path="/login"
